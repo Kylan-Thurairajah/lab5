@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "340137994723",
-    "project_id": "fir-app2-6a044",
-    "storage_bucket": "fir-app2-6a044.appspot.com"
+    "project_number": "174381215869",
+    "firebase_url": "https://lab5-96706-default-rtdb.firebaseio.com",
+    "project_id": "lab5-96706",
+    "storage_bucket": "lab5-96706.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:340137994723:android:0dc1afd6aa3512bc0218d6",
+        "mobilesdk_app_id": "1:174381215869:android:f217d97e2ba78cced00114",
         "android_client_info": {
           "package_name": "com.example.firebaseapp2"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCxFZU58mT45RXHXt81u8lN4Fus00ADhb8"
+          "current_key": "AIzaSyDxfr8LqiQm3zvwTTM9EM32o3qK_Q1BO-c"
         }
       ],
       "services": {
