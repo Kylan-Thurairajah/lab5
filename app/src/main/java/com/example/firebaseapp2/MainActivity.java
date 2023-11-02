@@ -47,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
         editTextPrice = (EditText) findViewById(R.id.editTextPrice);
         listViewProducts = (ListView) findViewById(R.id.listViewProducts);
         buttonAddProduct = (Button) findViewById(R.id.addButton);
-        databaseProducts = FirebaseDatabase.getInstance().getReference("products");
 
         products = new ArrayList<>();
+        databaseProducts = FirebaseDatabase.getInstance().getReference("products");
+
+
 
         //adding an onclicklistener to button
         buttonAddProduct.setOnClickListener(new View.OnClickListener() {
@@ -151,23 +153,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addProduct() {
-        String name = editTextName.getText().toString().trim();
-        double price = Double.parseDouble(String.valueOf(editTextPrice.getText().toString()));
+        //getting the values to save
+        String name= editTextName.getText().toString().trim();
+        double price= Double.parseDouble(String.valueOf(editTextPrice.getText().toString()));
 
-        if (!TextUtils.isEmpty(name)) {
-            Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
-        }
-        else {
+        //checking if value is provided
+        if(!TextUtils.isEmpty(name)){
+
+            //getting a unique id using push().getKey() method
+            //it will create a unique id and we will use it as the Primary Key for our Product
+            String id = databaseProducts.push().getKey();
+            //creating a Product Object
+            Product product = new Product(id, name, price);
+
+            //Saving the Product
+            databaseProducts.child(id).setValue(product);
+
+            //setting edittext to blank again
+            editTextName.setText("");
+            editTextPrice.setText("");
+
+            //displaying a success toast
+            Toast.makeText(this,"Product added", Toast.LENGTH_LONG).show();
+        }else{
+            //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
-
         }
-
-        String id = databaseProducts.push().getKey();
-        Product product = new Product(id, name, price);
-        databaseProducts.child(id).setValue(product);
-
-        editTextName.setText("");
-        editTextPrice.setText("");
-
     }
 }
