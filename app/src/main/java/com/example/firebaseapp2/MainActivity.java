@@ -116,10 +116,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = editTextName.getText().toString().trim();
-                double price = Double.parseDouble(String.valueOf(editTextPrice.getText().toString()));
-                if (!TextUtils.isEmpty(name)) {
+                double price = 0.0;
+                boolean numValid = false;
+                try {
+                    price = Double.parseDouble(String.valueOf(editTextPrice.getText().toString()));
+                    numValid = true;
+                } catch (NumberFormatException nfe) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid price", Toast.LENGTH_LONG).show();
+                }
+
+                if (!TextUtils.isEmpty(name) && numValid) {
                     updateProduct(productId, name, price);
                     b.dismiss();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -134,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateProduct(String id, String name, double price) {
-
         DatabaseReference dR =  FirebaseDatabase.getInstance().getReference("products").child(id);
         Product product = new Product(id, name, price);
         dR.setValue(product);
