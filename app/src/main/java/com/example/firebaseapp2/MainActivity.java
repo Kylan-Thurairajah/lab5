@@ -153,10 +153,18 @@ public class MainActivity extends AppCompatActivity {
     private void addProduct() {
         //getting the values to save
         String name= editTextName.getText().toString().trim();
-        double price= Double.parseDouble(String.valueOf(editTextPrice.getText().toString()));
+        double price = 0.0;
+        boolean numValid = false;
+
+        try {
+            price = Double.parseDouble(String.valueOf(editTextPrice.getText().toString()));
+            numValid = true;
+        } catch(NumberFormatException nfe) {
+            Toast.makeText(this, "Please enter a valid price", Toast.LENGTH_LONG).show();
+        }
 
         //checking if value is provided
-        if(!TextUtils.isEmpty(name)){
+        if(!TextUtils.isEmpty(name) && numValid == true){
 
             //getting a unique id using push().getKey() method
             //it will create a unique id and we will use it as the Primary Key for our Product
